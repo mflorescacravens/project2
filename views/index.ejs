@@ -1,5 +1,6 @@
 <h2>Home</h2>
 
+
 <% if (!currentUser) { %>
     <a href="/auth/signup">Signup</a>
     <a href="/auth/login">Login</a>
@@ -8,3 +9,11 @@
     <a href="/auth/logout">Logout</a>
     <a href="/profile">Profile</a>
 <% } %>
+
+<ul>
+    <% stories.forEach(function(story){ %>
+    <li>
+        <a href="/index/<%= story.url %>"> <%= story.title %> </a>
+    </li>
+    <% }) %>
+</ul>
