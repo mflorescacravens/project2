@@ -11,7 +11,7 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const helmet = require('helmet');
 // ! this is only used by the session store
 const db = require('./models');
-// const requestUrl = "https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty";
+const requestUrl = "https://hacker-news.firebaseio.com/v0/topstories.json";
 const axios = require('axios'); 
 
 const app = express();
@@ -60,12 +60,11 @@ app.use(function(req,res,next) {
 
 app.get('/', function(req, res) {
   // res.render('index');
-  var requestUrl = 'https://hacker-news.firebaseio.com/v0/topstories.json';
   // Use request to call the API
   axios.get(requestUrl).then( function(apiResponse) {
     var stories = apiResponse.data;
     // res.render('index', { stories: stories });
-    res.json({stories});
+    res.render('index', {stories: id});
   })
 });
 
