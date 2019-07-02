@@ -11,10 +11,9 @@
     <ul>
     <% stories.forEach(function(story){ %>
     <li>
+        <form action="/user" method="POST">
         <a href="<%= story.value.url %>"> <%= story.value.title %> </a>
-        <form action="" type="button">
-            <button method="POST">LIKE</button>
-            
+            <button>Favorite</button>
         </form>
     </li>
     <% }) %>
