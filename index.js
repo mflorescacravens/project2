@@ -62,8 +62,8 @@ app.use(function(req,res,next) {
 app.get('/', function(req, res) {
   // res.render('index');
   // Use request to call the API
-  axios.get(requestUrl).then( function(apiResponse) {
-    var stories = apiResponse.data;
+  // axios.get(requestUrl).then( function(apiResponse) {
+    // var stories = apiResponse.data;
     // res.render('index', { stories: stories });
     // res.render('index', {stories: id});
     // * res.json({stories: stories}); 
@@ -74,10 +74,13 @@ app.get('/', function(req, res) {
         return function(callback) {
           let storyUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json'
           axios.get(storyUrl).then( function(results) {
+            console.log(results.data)
             let stories = results.data.map( function(story) {
               return story.title
             })
             callback(null, {stories: stories});
+          }).catch(function(err) {
+            console.log(err);
           })
         }
       })
@@ -85,7 +88,7 @@ app.get('/', function(req, res) {
       console.log(results)
     })
     })
-  })
+  // })
 });
 
 app.get('/profile', isLoggedIn, function(req, res) {
