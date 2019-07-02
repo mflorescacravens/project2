@@ -12,7 +12,8 @@ const helmet = require('helmet');
 // ! this is only used by the session store
 const db = require('./models');
 const requestUrl = "https://hacker-news.firebaseio.com/v0/topstories.json";
-const axios = require('axios'); 
+const axios = require('axios');
+const async = require('async'); 
 
 const app = express();
 
@@ -64,7 +65,26 @@ app.get('/', function(req, res) {
   axios.get(requestUrl).then( function(apiResponse) {
     var stories = apiResponse.data;
     // res.render('index', { stories: stories });
-    res.render('index', {stories: id});
+    // res.render('index', {stories: id});
+    // * res.json({stories: stories}); 
+    // ! the line above will show all the data id numbers
+    axios.get(requestUrl).then( function(results) {
+      let postData = results.data;
+      let storyRequests = postData.map( function(id) {
+        return function(callback) {
+          let storyUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json'
+          axios.get(storyUrl).then( function(results) {
+            let stories = results.data.map( function(story) {
+              return story.title
+            })
+            callback(null, {stories: stories});
+          })
+        }
+      })
+    async.parallel(async.reflectAll(storyRequests), function(err, results) {
+      console.log(results)
+    })
+    })
   })
 });
 
