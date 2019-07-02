@@ -8,12 +8,16 @@
     <p>Hello, <%= currentUser.name %></p>
     <a href="/auth/logout">Logout</a>
     <a href="/profile">Profile</a>
-<% } %>
-
-<ul>
+    <ul>
     <% stories.forEach(function(story){ %>
     <li>
-        <a href="/index/<%= story.url %>"> <%= story.title %> </a>
+        <a href="<%= story.value.url %>"> <%= story.value.title %> </a>
+        <form action="" type="button">
+            <button method="POST">LIKE</button>
+            
+        </form>
     </li>
     <% }) %>
-</ul>
+    </ul>
+<% } %>
+

@@ -60,35 +60,21 @@ app.use(function(req,res,next) {
 })
 
 app.get('/', function(req, res) {
-  // res.render('index');
-  // Use request to call the API
-  // axios.get(requestUrl).then( function(apiResponse) {
-    // var stories = apiResponse.data;
-    // res.render('index', { stories: stories });
-    // res.render('index', {stories: id});
-    // * res.json({stories: stories}); 
-    // ! the line above will show all the data id numbers
     axios.get(requestUrl).then( function(results) {
       let postData = results.data;
       let storyRequests = postData.map( function(id) {
         return function(callback) {
           let storyUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json'
           axios.get(storyUrl).then( function(results) {
-            console.log(results.data)
-            let stories = results.data.map( function(story) {
-              return story.title
-            })
-            callback(null, {stories: stories});
-          }).catch(function(err) {
-            console.log(err);
+            let story = results.data
+            callback(null, {title: story.title, url: story.url});
           })
         }
       })
     async.parallel(async.reflectAll(storyRequests), function(err, results) {
-      console.log(results)
+      res.render('index', {stories: results})
     })
-    })
-  // })
+  })
 });
 
 app.get('/profile', isLoggedIn, function(req, res) {
