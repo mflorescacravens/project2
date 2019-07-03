@@ -82,6 +82,7 @@ app.get('/profile', isLoggedIn, function(req, res) {
 });
 
 app.use('/auth', require('./controllers/auth'));
+app.use('/stories', require('./routes/stories'));
 
 var server = app.listen(process.env.PORT || 3000, function() {
   console.log("Listening on port....", )

@@ -2,12 +2,11 @@
 module.exports = (sequelize, DataTypes) => {
   const story = sequelize.define('story', {
     title: DataTypes.STRING,
-    userid: DataTypes.INTEGER,
-    body: DataTypes.STRING
+    url: DataTypes.STRING
   }, {});
   story.associate = function(models) {
     // associations can be defined here
-    models.story.belongsTo(models.user);
+    models.story.belongsToMany(models.user, {through: 'usersStories'});
   };
   return story;
 };

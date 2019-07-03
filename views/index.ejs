@@ -11,9 +11,11 @@
     <ul>
     <% stories.forEach(function(story){ %>
     <li>
-        <form action="/user" method="POST">
         <a href="<%= story.value.url %>"> <%= story.value.title %> </a>
-            <button>Favorite</button>
+        <form action="/user" method="POST" name="story">
+        <input type="text" hidden value="<%= story.value.url %>">
+        <input type="text" hidden value="<%= story.value.title %>">
+        <input type="submit" value="Favorite">
         </form>
     </li>
     <% }) %>
