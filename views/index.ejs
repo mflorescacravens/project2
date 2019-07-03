@@ -13,7 +13,7 @@
     <li>
         <a href="<%= story.value.url %>"> <%= story.value.title %> </a>
         <form action="/user" method="POST" name="story">
-        <input type="text" hidden value="<%= story.value.url %>">
+        <input type="text" name="url" hidden value="<%= story.value.url %>">
         <input type="text" hidden value="<%= story.value.title %>">
         <input type="submit" value="Favorite">
         </form>
