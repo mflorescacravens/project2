@@ -7,16 +7,23 @@ const app = express();
 router.get('/', function (req,res) {
     res.render('../views/profile.ejs');
 });
-// router.post('/', function(req,res) {
 
-//     //     db.story.findOrCreate({
-// //         where: {
-// //             title: req.body.title,
-// //             url: req.body.url
 
-// //         }
-// //     })
-// // }
-// });
+router.post('/favorites', function(req,res) {
+    db.user.findByPk(req.user.id).then(function (user) {
+        db.story.findOrCreate({
+            where: {
+            title: req.body.title,
+            url: req.body.url
+            }
+        }).spread(function (story, created) {
+            user.addStory(story)
+        })
+    })
+
+});
+
+
+
 
 module.exports = router;

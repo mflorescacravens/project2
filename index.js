@@ -61,7 +61,7 @@ app.use(function(req,res,next) {
 
 app.get('/', function(req, res) {
     axios.get(requestUrl).then( function(results) {
-      let postData = results.data;
+      let postData = results.data.splice(0,100);
       let storyRequests = postData.map( function(id) {
         return function(callback) {
           let storyUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json'
