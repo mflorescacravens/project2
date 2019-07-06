@@ -17,11 +17,13 @@ router.post('/favorites', function(req,res) {
             url: req.body.url
             }
         }).spread(function (story, created) {
-            user.addStory(story)
+            user.addStory(story);
+            res.redirect('/')
         })
     })
-
 });
+
+
 
 
 
