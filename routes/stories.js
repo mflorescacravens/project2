@@ -6,5 +6,10 @@ router.post('/', function(req, res) {
   res.send('you hit the stories route')
 });
 
+// POST add a story to a category
+
+
+// GET show users created categories
+
 
 module.exports = router;

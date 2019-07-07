@@ -12,10 +12,11 @@
     <% stories.forEach(function(story){ %>
     <li>
         <a href="<%= story.value.url %>"> <%= story.value.title %> </a>
-        <form action="/user/favorites" method="POST" name="story">
-            <input type="text" name="url" hidden value="<%= story.value.url %>">
+        <form action="/categories" method="POST" name="story">
+            <input type="text" hidden name="url" value="<%= story.value.url %>">
             <input type="text" hidden name="title" value="<%= story.value.title %>">
-            <input type="submit" value="favorite">
+            <input type="text" name="catName">
+            <input type="submit" value="Add Category">
         </form>
     </li>
     <% }) %>
