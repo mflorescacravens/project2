@@ -1,1 +1,9 @@
 <h3>Your favorites</h3>
+
+<ul>
+    <% favorites.forEach( function (favorites) { %>
+        <li> <a href="/favorites/<%= stories.id %>"><%= stories.title %></a></li>
+    <% }); %>
+</ul>
+
+<p>this page isn't going to work until I get some the favorites added in a table</p>

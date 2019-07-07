@@ -1,2 +1,7 @@
 <h2>Select a category</h2>
 
+<ul>
+    <% categories.forEach( function(dinosaur) { %>
+        <li> <a href="/categories/<%= categories.name %>"><%= categories.name %></a></li>
+    <% }); %>
+</ul>
