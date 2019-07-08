@@ -3,3 +3,9 @@
     <input type="text" name="newName" value="<%= category.name %>">
     <input type="submit" value="Change Name">
 </form>
+
+<ul>
+    <% category.forEach(function(story) { %>
+    <li> <a href="<%= story.url %>"><%= story.title %></a></li>
+    <% }); %>
+</ul>

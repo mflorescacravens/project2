@@ -12,11 +12,25 @@ router.get('/', function(req,res) {
 //* add a category to a story - This works YAY!
 router.post('/', function(req, res) {
     let newCat = {
-        name: req.body.catName
+        name: req.body.catName,
+        userId: req.user.id
     }
-    db.category.create(newCat).then(function(category) {
-        res.redirect('/');
-    });
+    db.category.findOrCreate({
+        where: newCat
+    }).spread(function(category, created) {
+        db.story.findOrCreate({
+            where: {
+                id: parseInt(req.params.id),
+                name: req.body.name,
+                url: req.body.url
+            }
+        }).spread(function(story, created) {
+            // not sure what to do here
+            category.addStory(story).then(function(data) {
+                res.redirect('/categories')
+            })
+        })
+    })
 });
 
 // delete a category
@@ -30,9 +44,11 @@ router.delete('/:id', function(req, res) {
 
 
 router.get('/:id', function(req, res) {
-    db.category.findByPk(parseInt(req.params.id))
+    db.category.findByPk(parseInt(req.params.id), {
+        include: [db.story]
+    })
     .then(function(category) {
-        res.render('../views/category', {category})
+        res.render('category', {category})
     });
 });
 
@@ -52,17 +68,8 @@ router.get('/user/:id', function(req,res) {
         where: {id: parseInt(req.params.id)},
         include: [db.user]
     }).then(function(stories) {
-        res.render('..views/profile', {story})
+        res.render('../views/profile', {story})
     });
 });
-
-// app.get('/dinosaurs/:id', function (req, res) {
-//     db.dinosaur.findOne({
-//         where: {id: parseInt(req.params.id)},
-//         include: [db.possession]
-//     }).then(function(dinosaur) {
-//             res.render('dinos/show', {dinosaur} )
-//         });
-// });
 
 module.exports = router;
