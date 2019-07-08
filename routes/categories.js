@@ -46,6 +46,23 @@ router.put('/:id', function(req, res) {
         })
 })
 
+// GET show one category and all stories with category
+router.get('/user/:id', function(req,res) {
+    db.category.findOne({
+        where: {id: parseInt(req.params.id)},
+        include: [db.user]
+    }).then(function(stories) {
+        res.render('..views/profile', {story})
+    });
+});
 
+// app.get('/dinosaurs/:id', function (req, res) {
+//     db.dinosaur.findOne({
+//         where: {id: parseInt(req.params.id)},
+//         include: [db.possession]
+//     }).then(function(dinosaur) {
+//             res.render('dinos/show', {dinosaur} )
+//         });
+// });
 
 module.exports = router;

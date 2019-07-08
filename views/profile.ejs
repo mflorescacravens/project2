@@ -4,12 +4,10 @@
 
 <h5>Your Created Categories:</h5>
 
-<p>I need to use a join table for this</p>
-
 <ul>
-    <% Categories.forEach( function(categories) {%>
-        <li><a href="/"></a> </li>
-
+    <% categories.forEach(function(categories) { %>
+        <li><a href="<%= categories.name %>"></a></li>
+    <% }); %>
 </ul>
 <hr/>
 
