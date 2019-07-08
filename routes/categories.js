@@ -2,15 +2,14 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-// show all categories on categories page
+//! need to show all categories for each story
 router.get('/', function(req,res) {
     db.category.findAll().then(function(categories) {
-        //! can't figure out why this doesn't work... i want it to go to the categories page and show all categories.
-        res.redirect('/categories')
+        res.render('../views/categories', {categories})
     });
 });
 
-// add a category to a story
+//* add a category to a story - This works YAY!
 router.post('/', function(req, res) {
     let newCat = {
         name: req.body.catName
@@ -21,12 +20,32 @@ router.post('/', function(req, res) {
 });
 
 // delete a category
-router.delete('/delete/category', function(req,res) {
-    // delete category from a story
-    db.category.findByPk().then(function(categories) {
-        res.redirect('/')
-    })
+router.delete('/:id', function(req, res) {
+    db.category.destroy({
+        where: {id: parseInt(req.params.id)}
+    }).then(function(data) {
+        res.redirect('/categories');
+    });
+});
+
+
+router.get('/:id', function(req, res) {
+    db.category.findByPk(parseInt(req.params.id))
+    .then(function(category) {
+        res.render('../views/category', {category})
+    });
+});
+
+router.put('/:id', function(req, res) {
+    db.category.update({
+        name: req.body.newName
+    }, {
+        where: {id: parseInt(req.params.id)}
+    }).then(function(category) {
+        res.redirect('/categories/' + req.params.id);
+        })
 })
+
 
 
 module.exports = router;

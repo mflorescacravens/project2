@@ -14,6 +14,7 @@ const db = require('./models');
 const requestUrl = "https://hacker-news.firebaseio.com/v0/topstories.json";
 const axios = require('axios');
 const async = require('async'); 
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -32,6 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use(ejsLayouts);
 app.use(helmet());
+app.use(methodOverride('_method'));
+
+
 
 
 // Configures express-session middleware

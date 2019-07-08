@@ -1,7 +1,5 @@
-<h2>Add a category</h2>
-
-<ul>
-    <% categories.forEach( function(categories) { %>
-        <li> <a href="/categories/<%= categories.id %>"><%= categories.name %></a></li>
-    <% }); %>
-</ul>
+<h2><%= category.name %></h2>
+    <form method="POST" action="/categories/<%= category.id %>/?_method=PUT">
+        <input type="text" name="newName" value="<%= category.name %>">
+        <input type="submit" value="Change Name">
+    </form>

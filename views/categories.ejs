@@ -1,0 +1,11 @@
+<h2>All Categories</h2>
+
+<ul>
+    <% categories.forEach( function(categories) { %>
+        <li> <a href="/categories/<%= categories.id %>"><%= categories.name %></a>
+            <form method="POST" action="/categories/<%= categories.id %>/?_method=DELETE">
+                <input type="submit" value="DELETE">
+            </form>
+        </li>
+    <% }); %>
+</ul>
