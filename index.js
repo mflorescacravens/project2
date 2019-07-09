@@ -91,8 +91,6 @@ app.use('/stories', require('./routes/stories'));
 app.use('/user', require('./routes/user'));
 app.use('/categories', require('./routes/categories'));
 
-var server = app.listen(process.env.PORT || 3000, function() {
-  console.log("Listening on port....", )
-});
+var server = app.listen(process.env.PORT || 3000)
 
 module.exports = server;
