@@ -1,32 +1,3 @@
-# Express Authentication
-
-Express authentication template using Passport + flash messages + custom middleware
-
-## Getting Started
-
-#### Scaffold w/tests (see `master` branch)
-
-* Run `npm install` to install dependencies
-  * Use `npm run lint:js` to lint your JS
-  * Use `npm run lint:css` to lint your CSS
-  * Use `npm test` to run tests
-* Setup the databases
-  * Change the database names in `config/config.json` to reflect your project
-  * Run `createdb project_name_development` to create the development database
-  * Run `createdb project_name_test` to create the test database
-
-#### Finished version (see `brian-finished` branch)
-
-* Run `npm install` to install dependencies
-  * Use `npm run lint:js` to lint your JS
-  * Use `npm run lint:css` to lint your CSS
-  * Use `npm test` to run tests
-* Setup the databases
-  * Run `createdb express_auth_development` to create the development database
-  * Run `createdb express_auth_test` to create the test database
-  * Run `sequelize db:migrate` to run migrations
-
-
 # README
 
 Please see the following sections:
@@ -70,4 +41,37 @@ I would say the biggest lesson learned here is that using console.log driven tes
 
 ### Future Plans
 
-In the future I want to build out more features like users being able to have favorited categories and favorited stories. I also would like to style this project to be more aesthetically pleasing. The majority of my time went to back end coding in this project. I also would like to implement pagenation so you can click through multiple pages of about 20 or so links. I was unable to get to this due to some complications along the way but this will be implemented eventually.
+In the future I want to build out more features like users being able to have favorited categories and favorited stories. I also would like to style this project to be more aesthetically pleasing. The majority of my time went to back end coding in this project. I also would like to implement pagenation so you can click through multiple pages of about 20 or so links. I was unable to get to this due to some complications along the way but this will be implemented eventually. Also, I'd like to make this optimized for mobile.
+
+### Code to notice
+
+I wanted to show this code in particular because it was my first time using async. It was challenging to get this to work but after some trials, I was able to finally get it working.
+
+``` 
+app.get('/', function(req, res) {
+    axios.get(requestUrl).then( function(results) {
+      let postData = results.data.splice(0,100);
+      let storyRequests = postData.map( function(id) {
+        return function(callback) {
+          let storyUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json'
+          axios.get(storyUrl).then( function(results) {
+            let story = results.data
+            callback(null, {title: story.title, url: story.url});
+          })
+        }
+      })
+    async.parallel(async.reflectAll(storyRequests), function(err, results) {
+      res.render('index', {stories: results})
+    })
+  })
+}); 
+```
+
+### References and sources
+
+- Steve Peters
+- Mike Shull
+- Carlo Bruno
+- Sean Cesmat
+- w3schools
+- mdnmozilla
