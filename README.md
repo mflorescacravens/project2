@@ -1,5 +1,7 @@
 # README
 
+App hosted on Heroku at: https://the-hacks.herokuapp.com/
+
 Please see the following sections:
 
 ### Technologies
