@@ -1,15 +1,20 @@
 body {
     background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Simple-Background-Images-21.png');
     background-color: 200,100,0,.4;
+    background-attachment: fixed;
+    background-size: cover;
+
 }
 
 h1 {
-    color: lightblue;
-    text-align: center;
+    color: white;
     border: 3px solid black;
     border-radius: 15px;
-    background-color: rgba(10, 100, 250, 0.3);
-    
+    background-color: rgba(150, 250, 10, 0.7);
+    text-align: center;
+    width: 300px;
+    margin: 20px auto;
+    padding: 10px 20px;
 }
 
 p, h2, h3, a, div {
@@ -18,11 +23,6 @@ p, h2, h3, a, div {
 
 h2 {
     color: lightblue;
-}
-
-div {
-    background-color: rgba(10, 100, 250, 0.3);
-
 }
 
 a {
@@ -36,6 +36,7 @@ input {
 }
 
 li, ul {
+    list-style-type: none;
     margin: 20px;
     padding: 5px;
 }
