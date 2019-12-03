@@ -19,17 +19,14 @@ h1 {
 
 p, h2, h3, a, div {
     text-align: center;
+    color: white;
 }
 
 h2 {
-    color: lightblue;
+    color: white;
 }
 
-a {
-    color: lightblue;
-    background-color: rgba(0, 0, 0, .3);
-    border: 1px solid white;
-}
+
 
 input {
     margin: 5px;
